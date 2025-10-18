@@ -1,0 +1,47 @@
+name: Scheduled Maintenance Task
+
+ 
+on:
+  schedule:
+    - cron: "0 12 * * *"    
+  workflow_dispatch:         
+
+jobs:
+  scheduled-task:
+    runs-on: ubuntu-latest
+
+    steps:
+       
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+    
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+    
+      - name: Run scheduled maintenance script
+        run: |
+          echo "🕒 Scheduled task started at $(date)"
+          echo "Performing website health check..."
+          if [ -f public/index.html ]; then
+            echo "✅ index.html exists — website structure OK"
+          else
+            echo "❌ index.html missing!"
+          fi
+          echo "🔍 Checking dependencies..."
+          npm outdated || true
+          echo "Task completed successfully."
+
+      
+      - name: Save log output
+        run: |
+          mkdir -p logs
+          echo "Last run on $(date)" > logs/last_run.log
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add logs/last_run.log
+          git commit -m "Update scheduled task log" || echo "No changes"
+          git push || echo "Push skipped (no token permissions)"
