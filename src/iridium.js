@@ -7,6 +7,7 @@ const eventsIridium = ["brightness", "altitude", "azimuth", "satellite", "distan
 
 function getTable(config) {
 	let database = config.database || [];
+	let myvar='';
 	let counter = config.counter || 0;
 	const opt = config.opt || 0;
 	const basedir = config.root + "IridiumFlares/";
