@@ -14,6 +14,10 @@ jobs:
     
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0    # fetch all history and tags
+
+
 
     
     - name: Get latest tag
