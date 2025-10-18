@@ -1,0 +1,48 @@
+name: Custom Workflow - Generate Release Notes
+
+ 
+on:
+  push:
+    tags:
+      - 'v*'    
+
+jobs:
+  generate-release-notes:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout main branch
+      uses: actions/checkout@v3
+      with:
+        ref: main       # always checkout main branch
+        fetch-depth: 0  # fetch all history and tags
+
+
+
+
+    
+    - name: Get latest tag
+      id: get_tag
+      run: |
+        echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+    
+    - name: Generate release notes
+      run: |
+        mkdir -p release_notes
+        echo "# Release Notes for $TAG_NAME" > release_notes/$TAG_NAME.md
+        echo "Generated automatically by GitHub Actions" >> release_notes/$TAG_NAME.md
+        git log $(git describe --tags --abbrev=0)^..$TAG_NAME --oneline >> release_notes/$TAG_NAME.md
+
+    
+    - name: Commit and push release notes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add release_notes/
+        git commit -m "Add release notes for $TAG_NAME"
+        git push origin HEAD:main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
