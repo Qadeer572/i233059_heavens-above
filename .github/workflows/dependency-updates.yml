@@ -1,15 +1,26 @@
-version: 2
-updates:
-  
-  - package-ecosystem: "npm"
-    directory: "/"                    
-    schedule:
-      interval: "weekly"              
-    commit-message:
-      prefix: "chore(deps)"
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: "jest"      
-        versions: [">=30.0.0"]
-    reviewers:
-      - "Qadeer572"                   
+name: Test Dependabot Updates
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'  # Only runs when Dependabot opens PRs
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
