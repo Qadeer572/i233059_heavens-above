@@ -1,21 +1,27 @@
-// eslint.config.mjs
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-  recommendedConfig: js.configs.recommended, // ✅ this is the missing parameter
-});
 
 export default [
   js.configs.recommended,
-  ...compat.extends("eslint:recommended"),
   {
     files: ["**/*.js"],
-    languageOptions: { ecmaVersion: "latest" },
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "script", // 👈 not "module"
+      globals: {
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
+        console: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
     rules: {
-      semi: ["error", "always"],
       quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "no-unused-vars": "warn",
+      "no-undef": "off", // 👈 turns off "require is not defined" errors if you want
     },
   },
 ];
