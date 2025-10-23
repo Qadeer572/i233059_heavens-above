@@ -1,43 +1,22 @@
 name: Documentation Deployment
 
- 
 on:
   push:
     branches:
       - main
     paths:
-      - 'docs/**'   
+      - 'docs/**'  # only trigger when docs change
 
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-   
-    - name: Install dependencies
-      run: npm install
-
-    
-    - name: Build Documentation
-      run: |
-        # If using plain Markdown with GitHub Pages, copy docs to output folder
-        mkdir -p out
-        cp -r docs/* out/
-        # If using a static site generator like Docusaurus: npm run build
-
-     
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./out
+      - name: Trigger Read the Docs build
+        run: |
+          curl -X POST -d "" \
+          -H "Authorization: Token ${{ secrets.RTD_TOKEN }}" \
+          https://readthedocs.org/api/v3/projects/i233059-heavens-above5/builds/
