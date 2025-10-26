@@ -1,7 +1,7 @@
 Heaven Documentation
 ====================
 
-Welcome to the Heaven project(Made By Qadeer Raza) documentation.
+Welcome to the Heaven project (Made by Qadeer Raza) documentation.
 
 This project demonstrates **GitHub Actions automation** for continuous integration,
 deployment, dependency management, code review, and documentation deployment.
@@ -28,16 +28,17 @@ How It Works
 
 Whenever you push changes to the main branch:
 
-1. Tests and linting are run automatically.
-2. The deployment pipeline builds and deploys your app.
-3. Scheduled tasks run periodically to maintain project stability.
-4. Dependencies are automatically updated and tested.
-5. Documentation (this page) is rebuilt and deployed to ReadTheDocs.
+1. Tests and linting are run automatically.  
+2. The deployment pipeline builds and deploys your app.  
+3. Scheduled tasks run periodically to maintain project stability.  
+4. Dependencies are automatically updated and tested.  
+5. Documentation (this page) is rebuilt and deployed to Read the Docs.  
 
 -------------------------------
 
 End of Documentation
 -------------------------------
 
-Thank you for visiting the Heaven Documentation!
-* Made By Qadeer Raza
+Thank you for visiting the **Heaven Documentation!**
+
+*Made by Qadeer Raza*
