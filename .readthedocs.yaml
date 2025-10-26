@@ -1,21 +1,13 @@
-# .readthedocs.yaml
 version: 2
 
-# Build documentation in the "docs/" directory using Sphinx or Markdown
-sphinx:
-  configuration: docs/conf.py   # If you're using Sphinx
-
-# Or if your docs are Markdown files only (no Sphinx):
-# mkdocs:
-#   configuration: mkdocs.yml
-
-# Define build environment
 build:
-  os: ubuntu-22.04
+  os: ubuntu-latest
   tools:
     python: "3.10"
 
-# Optional: Python dependencies (only if needed)
-# python:
-#   install:
-#     - requirements: docs/requirements.txt
+sphinx:
+  configuration: docs/conf.py
+
+python:
+  install:
+    - requirements: docs/requirements.txt
