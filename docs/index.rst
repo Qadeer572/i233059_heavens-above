@@ -1,9 +1,9 @@
-.. heavne documentation master file, created by
-   sphinx-quickstart on Sun Oct 26 18:38:51 2025.
+.. heaven documentation master file, created by
+   sphinx-quickstart on Sun Oct 26 18:42:18 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-heavne documentation
+heaven documentation
 ====================
 
 Add your content using ``reStructuredText`` syntax. See the
