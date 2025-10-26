@@ -15,7 +15,4 @@ build:
   tools:
     python: "3.10"
 
-# Optional: Python dependencies (only if needed)
-python:
-   install:
-     - requirements: docs/requirements.txt
+ 
