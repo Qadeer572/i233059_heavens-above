@@ -41,4 +41,4 @@ End of Documentation
 
 Thank you for visiting the **Heaven Documentation!**
 
-*Made by Qadeer Raza*
+**Made by Qadeer Raza**
