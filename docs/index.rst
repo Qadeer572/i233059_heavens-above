@@ -1,7 +1,7 @@
 Heaven Documentation
 ====================
 
-Welcome to the Heaven project (Made by Qadeer Raza) documentation.
+Welcome to the Heaven project Made by Qadeer Raza documentation.
 
 This project demonstrates **GitHub Actions automation** for continuous integration,
 deployment, dependency management, code review, and documentation deployment.
