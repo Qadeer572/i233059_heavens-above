@@ -3,7 +3,7 @@ version: 2
 
 # Build documentation in the "docs/" directory using Sphinx or Markdown
 sphinx:
-  configuration: docs/conf.py   # If you're using Sphinx
+  configuration: source/conf.py   # If you're using Sphinx
 
 # Or if your docs are Markdown files only (no Sphinx):
 # mkdocs:
