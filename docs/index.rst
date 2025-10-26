@@ -40,4 +40,4 @@ End of Documentation
 -------------------------------
 
 Thank you for visiting the Heaven Documentation!
-Made By Qadeer Raza
+* Made By Qadeer Raza
