@@ -1,21 +1,42 @@
-Welcome to Heaven Documentation
-===============================
+Heaven Documentation
+====================
 
-This project is part of an automation setup using GitHub Actions.
-Below you'll find information about each workflow and how it works.
+Welcome to the Heaven project documentation.
 
-Contents
---------
+This project demonstrates **GitHub Actions automation** for continuous integration,
+deployment, dependency management, code review, and documentation deployment.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Workflows
+-------------------------------
 
-   1.ci
-   2.deploy
-   3.scheduled
-   4.dependency
-   5.code_review
-   6.documentation
+About This Project
+-------------------------------
 
-   7.Qadeer Raza
+The Heaven project automates the software development workflow using GitHub Actions.
+It includes workflows for:
+
+* Continuous Integration (CI)
+* Deployment Pipeline
+* Scheduled Tasks
+* Dependency Updates
+* Code Review Automation
+* Documentation Deployment
+
+-------------------------------
+
+How It Works
+-------------------------------
+
+Whenever you push changes to the main branch:
+
+1. Tests and linting are run automatically.
+2. The deployment pipeline builds and deploys your app.
+3. Scheduled tasks run periodically to maintain project stability.
+4. Dependencies are automatically updated and tested.
+5. Documentation (this page) is rebuilt and deployed to ReadTheDocs.
+
+-------------------------------
+
+End of Documentation
+-------------------------------
+
+Thank you for visiting the Heaven Documentation!
