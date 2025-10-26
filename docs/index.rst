@@ -1,21 +1,21 @@
-.. heaven documentation master file, created by
-   sphinx-quickstart on Sun Oct 26 18:42:18 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to Heaven Documentation
+===============================
 
-heaven documentation
-====================
+This project is part of an automation setup using GitHub Actions.
+Below you'll find information about each workflow and how it works.
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
-Qadeer Raza
-23i-3059
-Fall 2025
-Fast Nuces Islamabad
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Workflows
 
+   ci
+   deploy
+   scheduled
+   dependency
+   code_review
+   documentation
+
+   Qadeer Raza
