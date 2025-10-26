@@ -10,6 +10,10 @@ Add your content using ``reStructuredText`` syntax. See the
 `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
 documentation for details.
 
+Qadeer Raza
+23i-3059
+Fall 2025
+Fast Nuces Islamabad
 
 .. toctree::
    :maxdepth: 2
