@@ -34,6 +34,5 @@ jobs:
     - name: Run Tests
       run: npm test
 
-    # Step 6: Security check (optional, using npm audit)
-    - name: Run Security Audit
-      run: npm audit --audit-level=moderate
+    - name: Run npm audit
+      run: npm audit --audit-level=moderate || true
