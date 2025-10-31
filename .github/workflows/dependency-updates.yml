@@ -1,14 +1,13 @@
-name: Test Dependabot Updates
+name: Dependency Updates
 
 on:
-  pull_request:
-    branches: [ main ]
-    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 2 * * 1'     # Runs every Monday at 2 AM UTC
+  workflow_dispatch:          # Allows manual run for testing
 
 jobs:
-  test-dependabot:
+  check-and-update:
     runs-on: ubuntu-latest
-   # if: github.actor == 'dependabot[bot]'   
 
     steps:
       - name: Checkout repository
@@ -22,14 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
-        
+      - name: Check for outdated dependencies
+        run: npm outdated || true
+
+      - name: Attempt to update dependencies
+        run: |
+          npm update || true
+          mkdir -p update_logs
+          echo "Dependency check and update run completed at $(date)" > update_logs/dependency_log.txt
+
       - name: Upload dependency logs
         uses: actions/upload-artifact@v4
         with:
           name: dependency-update-report
           path: update_logs/
-
-
-#hello world
