@@ -3,9 +3,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"                    # Location of package.json
     schedule:
-      interval: "weekly"              # You can use "daily" if you want
+      interval: "daily"              # You can use "daily" if you want
     commit-message:
       prefix: "chore(deps)"
     open-pull-requests-limit: 5
     reviewers:
-      - "Qadeer572"                   # Your GitHub username
+      - "Qadeer572"                   
