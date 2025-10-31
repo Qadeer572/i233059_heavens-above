@@ -1,24 +1,16 @@
-name: Scheduled Workflow
+name: Scheduled Data Scraper & Deploy (Vercel)
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages-schedule
-  cancel-in-progress: true
+    - cron: '*/5 * * * *'   # Runs every 5 minutes
+  workflow_dispatch:         # Allow manual trigger
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -38,11 +30,9 @@ jobs:
       - name: Run scraper
         run: node run.js
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
-
+      - name: Trigger Vercel Deployment
+        run: |
+          curl -X POST \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            ${{ secrets.VERCEL_DEPLOY_HOOK }}
