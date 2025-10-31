@@ -1,42 +1,40 @@
-name: Deploy Website
+name: Deploy to Vercel
 
 on:
   push:
-    branches: [ main ]         
-  workflow_dispatch:         
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-test-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          check-latest: true
 
-       
       - name: Install dependencies
-        run: npm install
-
-    
-      - name: Run tests
-        run: npm test
-
-      #--
-      - name: Build website
         run: |
-          echo "No build step required for static HTML."
-          ls -R public
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund
+          else
+            npm install --no-audit --no-fund
+          fi
 
-       
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public       
+      - name: Build data
+        run: node run.js
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npm install -g vercel
+          vercel deploy --prod --token=$VERCEL_TOKEN --yes
