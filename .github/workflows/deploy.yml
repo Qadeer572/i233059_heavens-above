@@ -1,41 +1,33 @@
-name: Deploy to Vercel
-#hello world
+name: Deployment Pipeline (Vercel)
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-to-vercel:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
+      # Optionally install dependencies and build your data scraper
+      - name: Build data (optional)
         run: |
           if [ -f package-lock.json ]; then
             npm ci --no-audit --no-fund
           else
             npm install --no-audit --no-fund
           fi
+          node run.js
 
-      - name: Build data
-        run: node run.js
-
-      - name: Deploy to existing Vercel project
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      # Trigger Vercel deployment via API (no CLI, no scope issues)
+      - name: Trigger Vercel Deployment
         run: |
-          npm install -g vercel
-          vercel pull --yes --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID --environment=production
-          vercel deploy --prod --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID --yes
-
+          curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_${{ secrets.VERCEL_PROJECT_ID }}" \
+          -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{}'
