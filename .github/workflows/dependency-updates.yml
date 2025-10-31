@@ -8,7 +8,7 @@ on:
 jobs:
   test-dependabot:
     runs-on: ubuntu-latest
-   # if: github.actor == 'dependabot[bot]'  # Only runs when Dependabot opens PRs
+   # if: github.actor == 'dependabot[bot]'   
 
     steps:
       - name: Checkout repository
