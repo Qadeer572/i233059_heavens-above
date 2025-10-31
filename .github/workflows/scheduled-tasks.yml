@@ -1,50 +1,48 @@
-name: Scheduled Maintenance Task
+name: Scheduled Workflow
 
- 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:         
+    - cron: '* 3 * * *' # daily at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-schedule
+  cancel-in-progress: true
 
 jobs:
-  scheduled-task:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-       
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-    
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          check-latest: true
 
-    
-      - name: Run scheduled maintenance script
+      - name: Install dependencies
         run: |
-          echo "🕒 Scheduled task started at $(date)"
-          echo "Performing website health check..."
-          if [ -f public/index.html ]; then
-            echo "✅ index.html exists — website structure OK"
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund
           else
-            echo "❌ index.html missing!"
+            npm install --no-audit --no-fund
           fi
-          echo "🔍 Checking dependencies..."
-          npm outdated || true
-          echo "Task completed successfully."
 
-      
-       
-      - name: Create logs folder
-        run: mkdir -p logs
-        
-      - name: Commit logs to repository
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f logs/
-          git commit -m "Add maintenance logs [skip ci]" || echo "No changes to commit"
-          git push
+      - name: Run scraper
+        run: node run.js
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
 
