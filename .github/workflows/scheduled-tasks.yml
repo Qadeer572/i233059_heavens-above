@@ -2,7 +2,7 @@ name: Scheduled Data Scraper & Deploy (Vercel)
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # Runs every 5 minutes
+    - cron: '* 3 * * *'    
   workflow_dispatch:         # Allow manual trigger
 
 jobs:
